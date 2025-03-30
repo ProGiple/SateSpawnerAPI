@@ -1,0 +1,27 @@
+after_click_block_action:
+  id: LUNA_MOON_SYNTEZ # поставьте NONE чтобы открывалась первоначальное меню
+  registerOnly: false # если true - все методы будут обрабатываться только с этого плагина (все остальные не будут работать)
+menu:
+  title: "&0"
+  rows: 6
+  items:
+    decorations: {}
+    clickable:
+      CLOSE:
+        material: STONE_BUTTON
+        displayName: "&cВыйти"
+        lore: []
+        slot: 19
+      API-LUNA_MOON_SYNTEZ:
+        material: SPAWNER
+        displayName: ""
+        lore: []
+        slot: 8
+      API-SATE_BIO_SYNTEZ:
+        material: SPAWNER
+        displayName: ""
+        lore: []
+        slot: 9
+messages:
+  noPermission: []
+  reload: []

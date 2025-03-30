@@ -1,0 +1,19 @@
+name: SateSpawnerAPI
+version: '${project.version}'
+main: org.satellite.dev.progiple.satespawnerapi.SateSpawnerAPI
+api-version: '1.16'
+authors: [ProGiple]
+depend:
+  - LunaSpring
+  - NBTAPI
+commands:
+  satespawnerapi:
+    usage: /sspapi reload
+    aliases:
+      - sspapi
+      - spawnerapi
+      - spawnersapi
+      - satespawner
+permissions:
+  satespawnerapi.reload:
+    default: op
