@@ -25,3 +25,4 @@ menu:
 messages:
   noPermission: []
   reload: []
+  spawnerCurrentlyOpen: []

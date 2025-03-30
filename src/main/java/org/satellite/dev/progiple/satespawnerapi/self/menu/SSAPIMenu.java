@@ -9,11 +9,11 @@ import org.bukkit.event.inventory.InventoryClickEvent;
 import org.bukkit.event.inventory.InventoryCloseEvent;
 import org.bukkit.event.inventory.InventoryOpenEvent;
 import org.bukkit.inventory.ItemStack;
-import org.novasparkle.lunaspring.API.Menus.AMenu;
 import org.novasparkle.lunaspring.API.Menus.Items.Item;
 import org.satellite.dev.progiple.satespawnerapi.SateSpawnerAPI;
 import org.satellite.dev.progiple.satespawnerapi.api.ISAPIComponent;
 import org.satellite.dev.progiple.satespawnerapi.api.SpawnerAPI;
+import org.satellite.dev.progiple.satespawnerapi.api.menu.SpawnerMenu;
 import org.satellite.dev.progiple.satespawnerapi.self.menu.buttons.ApiButton;
 import org.satellite.dev.progiple.satespawnerapi.self.menu.buttons.CloseButton;
 
@@ -22,13 +22,11 @@ import java.util.Objects;
 import java.util.Set;
 
 @Getter
-public final class SSAPIMenu extends AMenu {
-    private final Location location;
+public final class SSAPIMenu extends SpawnerMenu {
     private final Set<Item> buttons = new HashSet<>();
     public SSAPIMenu(Player player, ConfigurationSection section, Location location) {
         super(player, Objects.requireNonNull(section.getString("title")), (byte) (section.getInt("rows") * 9),
-                Objects.requireNonNull(section.getConfigurationSection("items.decorations")));
-        this.location = location;
+                Objects.requireNonNull(section.getConfigurationSection("items.decorations")), location);
 
         ConfigurationSection itemSections = section.getConfigurationSection("items.clickable");
         assert itemSections != null;
@@ -42,7 +40,7 @@ public final class SSAPIMenu extends AMenu {
                 ISAPIComponent isapiComponent = SateSpawnerAPI.getINSTANCE().getSpawnerAPI().getApi(id);
                 if (isapiComponent == null) throw new SpawnerAPI.SpawnerAPIIsNullException(id);
 
-                button = new ApiButton(itemSection, isapiComponent, this.location);
+                button = new ApiButton(itemSection, isapiComponent, this.getLocation());
             }
 
             if (button != null) this.buttons.add(button);

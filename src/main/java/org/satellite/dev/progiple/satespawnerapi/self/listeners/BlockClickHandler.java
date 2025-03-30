@@ -11,6 +11,7 @@ import org.novasparkle.lunaspring.API.Menus.MenuManager;
 import org.satellite.dev.progiple.satespawnerapi.SateSpawnerAPI;
 import org.satellite.dev.progiple.satespawnerapi.api.ISAPIComponent;
 import org.satellite.dev.progiple.satespawnerapi.api.SpawnerAPI;
+import org.satellite.dev.progiple.satespawnerapi.api.menu.SpawnerMenu;
 import org.satellite.dev.progiple.satespawnerapi.self.Config;
 import org.satellite.dev.progiple.satespawnerapi.self.menu.SSAPIMenu;
 
@@ -21,6 +22,16 @@ public class BlockClickHandler implements Listener {
         if (block == null || block.getType() != Material.SPAWNER) return;
 
         Player player = e.getPlayer();
+        if (MenuManager.getActiveInventories().values()
+                .stream()
+                .anyMatch(i -> {
+                    if (i instanceof SpawnerMenu spawnerMenu) return spawnerMenu.getLocation().equals(block.getLocation());
+                    return false;
+                })) {
+            Config.sendMessage(player, "spawnerCurrentlyOpen");
+            return;
+        }
+
         ItemStack item = player.getInventory().getItemInMainHand();
         SpawnerAPI api = SateSpawnerAPI.getINSTANCE().getSpawnerAPI();
 

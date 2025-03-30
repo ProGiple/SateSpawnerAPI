@@ -1,10 +1,12 @@
 package org.satellite.dev.progiple.satespawnerapi.api.menu;
 
+import lombok.Getter;
 import org.bukkit.Location;
 import org.bukkit.configuration.ConfigurationSection;
 import org.bukkit.entity.Player;
 import org.novasparkle.lunaspring.API.Menus.AMenu;
 
+@Getter
 public abstract class SpawnerMenu extends AMenu {
     private final Location location;
     public SpawnerMenu(Player player, Location location) {
