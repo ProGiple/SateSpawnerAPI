@@ -15,7 +15,8 @@ public interface ISAPIComponent {
 
     void onPlaceSpawner(BlockPlaceEvent e);
     void onBreakSpawner(BlockBreakEvent e);
-    void onDefaultClick(PlayerInteractEvent e);
+    boolean onDefaultClick(PlayerInteractEvent e);
+    void onSuperClick(PlayerInteractEvent e);
     void onClickWithEgg(PlayerInteractEvent e);
     void onInvClick(InventoryClickEvent e, Location spawnerLocation);
 }

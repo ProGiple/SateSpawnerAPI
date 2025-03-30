@@ -35,11 +35,12 @@ public class BlockClickHandler implements Listener {
         }
 
         if (component == null && (action_value == null || action_value.isEmpty() || action_value.contains("NONE"))) {
-            MenuManager.openInventory(player, new SSAPIMenu(player, Config.getSection("menu"), block.getLocation()));
+            if (api.getValues().stream().noneMatch(i -> i.onDefaultClick(e)))
+                MenuManager.openInventory(player, new SSAPIMenu(player, Config.getSection("menu"), block.getLocation()));
             return;
         }
 
         if (component == null) throw new SpawnerAPI.SpawnerAPIIsNullException(action_value);
-        component.onDefaultClick(e);
+        component.onSuperClick(e);
     }
 }
