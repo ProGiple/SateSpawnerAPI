@@ -1,7 +1,6 @@
 package org.satellite.dev.progiple.satespawnerapi.api;
 
 import lombok.Getter;
-import org.novasparkle.lunaspring.LunaPlugin;
 
 import java.util.Collection;
 import java.util.HashMap;
@@ -13,11 +12,7 @@ public class SpawnerAPI {
     private final Map<String, ISAPIComponent> apiMap = new HashMap<>();
 
     public void register(ISAPIComponent isapiComponent) {
-        if (this.isRegistered(isapiComponent.getId()) || this.apiMap
-                .values()
-                .stream()
-                .anyMatch(a -> a.getLunaPlugin().equals(isapiComponent.getLunaPlugin())))
-            throw new APIComponentWasRegistered(isapiComponent);
+        if (this.isRegistered(isapiComponent.getId().toUpperCase())) throw new APIComponentWasRegistered(isapiComponent);
         this.apiMap.put(isapiComponent.getId().toUpperCase(), isapiComponent);
     }
 
@@ -27,10 +22,6 @@ public class SpawnerAPI {
 
     public void unRegister(String id) {
         this.apiMap.remove(id.toUpperCase());
-    }
-
-    public void unRegister(LunaPlugin plugin) {
-        this.apiMap.values().stream().filter(i -> i.getLunaPlugin().equals(plugin)).findFirst().ifPresent(this::unRegister);
     }
 
     public boolean isRegistered(String id) {
@@ -56,8 +47,7 @@ public class SpawnerAPI {
 
     public final static class APIComponentWasRegistered extends RuntimeException {
         public APIComponentWasRegistered(ISAPIComponent isapiComponent) {
-            super(String.format("API %s плагина %s уже было зарегистрировано!",
-                    isapiComponent.getId().toUpperCase(), isapiComponent.getLunaPlugin().getName()));
+            super(String.format("API %s уже было зарегистрировано!", isapiComponent.getId().toUpperCase()));
         }
     }
 }

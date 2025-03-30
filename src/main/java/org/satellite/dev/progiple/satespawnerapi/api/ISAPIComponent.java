@@ -5,12 +5,10 @@ import org.bukkit.event.block.BlockBreakEvent;
 import org.bukkit.event.block.BlockPlaceEvent;
 import org.bukkit.event.inventory.InventoryClickEvent;
 import org.bukkit.event.player.PlayerInteractEvent;
-import org.novasparkle.lunaspring.LunaPlugin;
 
 public interface ISAPIComponent {
     String getId();
     boolean isLoaded();
-    LunaPlugin getLunaPlugin();
 
     void unload(Location location);
     void load(Location location);
