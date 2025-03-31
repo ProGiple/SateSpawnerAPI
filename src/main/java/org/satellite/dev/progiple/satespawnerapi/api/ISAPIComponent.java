@@ -10,8 +10,11 @@ public interface ISAPIComponent {
     String getId();
     boolean isLoaded();
 
-    void unload(Location location);
-    void load(Location location);
+    void unloadComponent();
+    void loadComponent();
+
+    void loadSpawner(Location location);
+    void unloadSpawner(Location location);
 
     void onPlaceSpawner(BlockPlaceEvent e);
     void onBreakSpawner(BlockBreakEvent e);
