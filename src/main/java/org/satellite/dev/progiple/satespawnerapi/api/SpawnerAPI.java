@@ -1,13 +1,8 @@
 package org.satellite.dev.progiple.satespawnerapi.api;
 
-import lombok.Getter;
-
-import java.util.Collection;
-import java.util.HashMap;
-import java.util.Map;
+import java.util.*;
 import java.util.stream.Collectors;
 
-@Getter
 public class SpawnerAPI {
     private final Map<String, ISAPIComponent> apiMap = new HashMap<>();
 
@@ -35,11 +30,12 @@ public class SpawnerAPI {
         return this.isRegistered(id.toUpperCase()) ? this.apiMap.get(id.toUpperCase()) : null;
     }
 
-    public Collection<ISAPIComponent> getValues() {
+    public List<ISAPIComponent> getValues() {
         return this.apiMap.values()
                 .stream()
                 .filter(ISAPIComponent::isLoaded)
-                .collect(Collectors.toSet());
+                .sorted(Comparator.comparing(ISAPIComponent::getPriority))
+                .collect(Collectors.toList());
     }
 
     public final static class SpawnerAPIIsNullException extends RuntimeException {

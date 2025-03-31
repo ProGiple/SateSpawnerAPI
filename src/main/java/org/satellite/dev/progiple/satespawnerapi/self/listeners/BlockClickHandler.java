@@ -1,5 +1,6 @@
 package org.satellite.dev.progiple.satespawnerapi.self.listeners;
 
+import org.bukkit.Location;
 import org.bukkit.Material;
 import org.bukkit.block.Block;
 import org.bukkit.entity.Player;
@@ -22,6 +23,7 @@ public class BlockClickHandler implements Listener {
         if (block == null || block.getType() != Material.SPAWNER) return;
 
         Player player = e.getPlayer();
+        Location location = block.getLocation();
         if (MenuManager.getActiveInventories().values()
                 .stream()
                 .anyMatch(i -> {
@@ -34,20 +36,20 @@ public class BlockClickHandler implements Listener {
 
         ItemStack item = player.getInventory().getItemInMainHand();
         SpawnerAPI api = SateSpawnerAPI.getINSTANCE().getSpawnerAPI();
-
         String action_value = Config.getString("after_click_action.id");
 
         ISAPIComponent component = Config.getBoolean("after_click_action.registerOnly") ?
                 api.getApi(action_value) : null;
-        if (item.getType().name().contains("_SPAWNER_EGG")) {
-            if (component == null) api.getValues().forEach(a -> a.onClickWithEgg(e));
-            else component.onClickWithEgg(e);
+        Material material = item.getType();
+        if (material.name().contains("_SPAWNER_EGG")) {
+            if (component == null) api.getValues().forEach(a -> a.onClickWithEgg(material, location));
+            else component.onClickWithEgg(material, location);
             return;
         }
 
         if (component == null && (action_value == null || action_value.isEmpty() || action_value.contains("NONE"))) {
             if (api.getValues().stream().noneMatch(i -> i.onDefaultClick(e)))
-                MenuManager.openInventory(player, new SSAPIMenu(player, Config.getSection("menu"), block.getLocation()));
+                MenuManager.openInventory(player, new SSAPIMenu(player, Config.getSection("menu"), location));
             return;
         }
 
