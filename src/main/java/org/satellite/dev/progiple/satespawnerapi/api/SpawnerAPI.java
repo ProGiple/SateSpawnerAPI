@@ -13,15 +13,18 @@ public class SpawnerAPI {
 
     public void register(ISAPIComponent isapiComponent) {
         if (this.isRegistered(isapiComponent.getId().toUpperCase())) throw new APIComponentWasRegistered(isapiComponent);
+        isapiComponent.loadComponent();
         this.apiMap.put(isapiComponent.getId().toUpperCase(), isapiComponent);
     }
 
-    public void unRegister(ISAPIComponent isapiComponent) {
-        this.unRegister(isapiComponent.getId().toUpperCase());
+    public void unRegister(ISAPIComponent component) {
+        component.unloadComponent();
+        this.apiMap.remove(component.getId().toUpperCase());
     }
 
     public void unRegister(String id) {
-        this.apiMap.remove(id.toUpperCase());
+        ISAPIComponent component = this.getApi(id);
+        if (component != null) this.unRegister(component);
     }
 
     public boolean isRegistered(String id) {
