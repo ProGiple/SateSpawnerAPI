@@ -6,9 +6,11 @@ import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.block.BlockBreakEvent;
 import org.bukkit.event.block.BlockPlaceEvent;
+import org.novasparkle.lunaspring.API.Menus.MenuManager;
 import org.satellite.dev.progiple.satespawnerapi.SateSpawnerAPI;
 import org.satellite.dev.progiple.satespawnerapi.api.ISAPIComponent;
 import org.satellite.dev.progiple.satespawnerapi.api.SpawnerAPI;
+import org.satellite.dev.progiple.satespawnerapi.api.menu.SpawnerMenu;
 import org.satellite.dev.progiple.satespawnerapi.self.Config;
 
 public class BlockWorldActionsHandler implements Listener {
@@ -33,6 +35,11 @@ public class BlockWorldActionsHandler implements Listener {
         SpawnerAPI api = SateSpawnerAPI.getINSTANCE().getSpawnerAPI();
         ISAPIComponent component = Config.getBoolean("after_click_action.registerOnly") ?
                 api.getApi(Config.getString("after_click_action.id")) : null;
+
+        MenuManager.getActiveInventories().values()
+                .forEach(i -> {
+                    if (i instanceof SpawnerMenu spawnerMenu &&
+                            spawnerMenu.getLocation().equals(block.getLocation())) spawnerMenu.getPlayer().closeInventory();});
 
         if (component == null) api.getValues().forEach(a -> a.onBreakSpawner(e));
         else component.onBreakSpawner(e);
