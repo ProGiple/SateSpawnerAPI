@@ -2,7 +2,6 @@ package org.satellite.dev.progiple.satespawnerapi.self.menu;
 
 import lombok.Getter;
 import org.bukkit.Location;
-import org.bukkit.Material;
 import org.bukkit.configuration.ConfigurationSection;
 import org.bukkit.entity.Player;
 import org.bukkit.event.inventory.InventoryClickEvent;
@@ -17,13 +16,10 @@ import org.satellite.dev.progiple.satespawnerapi.api.menu.SpawnerMenu;
 import org.satellite.dev.progiple.satespawnerapi.self.menu.buttons.ApiButton;
 import org.satellite.dev.progiple.satespawnerapi.self.menu.buttons.CloseButton;
 
-import java.util.HashSet;
 import java.util.Objects;
-import java.util.Set;
 
 @Getter
 public final class SSAPIMenu extends SpawnerMenu {
-    private final Set<Item> buttons = new HashSet<>();
     public SSAPIMenu(Player player, ConfigurationSection section, Location location) {
         super(player, Objects.requireNonNull(section.getString("title")), (byte) (section.getInt("rows") * 9),
                 Objects.requireNonNull(section.getConfigurationSection("items.decorations")), location);
@@ -43,30 +39,22 @@ public final class SSAPIMenu extends SpawnerMenu {
                 button = new ApiButton(itemSection, isapiComponent, this.getLocation());
             }
 
-            if (button != null) this.buttons.add(button);
+            if (button != null) this.addItems(button);
         }
     }
 
     @Override
     public void onOpen(InventoryOpenEvent e) {
-        this.buttons.forEach(b -> b.insert(this));
+        this.insertAllItems();
     }
 
     @Override
     public void onClick(InventoryClickEvent e) {
         ItemStack item = e.getCurrentItem();
-        if (item == null || item.getType() == Material.AIR) return;
-
         e.setCancelled(true);
-        for (Item button : this.buttons) {
-            if (button.checkId(item)) {
-                button.onClick(e);
-                return;
-            }
-        }
+        if (item != null) this.findFirstItem(item).onClick(e);
     }
 
     @Override
-    public void onClose(InventoryCloseEvent e) {
-    }
+    public void onClose(InventoryCloseEvent e) {}
 }

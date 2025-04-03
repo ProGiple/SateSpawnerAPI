@@ -1,5 +1,6 @@
 package org.satellite.dev.progiple.satespawnerapi.api;
 
+import lombok.Setter;
 import org.bukkit.Location;
 import org.bukkit.Material;
 import org.bukkit.event.block.BlockBreakEvent;
@@ -7,21 +8,23 @@ import org.bukkit.event.block.BlockPlaceEvent;
 import org.bukkit.event.inventory.InventoryClickEvent;
 import org.bukkit.event.player.PlayerInteractEvent;
 
-public interface ISAPIComponent {
-    String getId();
-    int getPriority();
-    boolean isLoaded();
+@Setter
+public abstract class ISAPIComponent {
+    private boolean loaded;
+    public abstract String getId();
+    public abstract int getPriority();
+    public abstract boolean isLoaded();
 
-    void unloadComponent();
-    void loadComponent();
+    public abstract void unloadComponent();
+    public abstract void loadComponent();
 
-    void loadSpawner(Location location);
-    void unloadSpawner(Location location);
+    public abstract void loadSpawner(Location location);
+    public abstract void unloadSpawner(Location location);
 
-    void onPlaceSpawner(BlockPlaceEvent e);
-    void onBreakSpawner(BlockBreakEvent e);
-    boolean onDefaultClick(PlayerInteractEvent e);
-    void onSuperClick(PlayerInteractEvent e);
-    void onClickWithEgg(Material egg, Location spawnerLocation);
-    void onInvClick(InventoryClickEvent e, Location spawnerLocation);
+    public abstract void onPlaceSpawner(BlockPlaceEvent e);
+    public abstract void onBreakSpawner(BlockBreakEvent e);
+    public abstract boolean onDefaultClick(PlayerInteractEvent e);
+    public abstract void onSuperClick(PlayerInteractEvent e);
+    public abstract void onClickWithEgg(Material egg, Location spawnerLocation);
+    public abstract void onInvClick(InventoryClickEvent e, Location spawnerLocation);
 }
