@@ -1,6 +1,4 @@
-after_click_block_action:
-  id: LUNA_MOON_SYNTEZ # поставьте NONE чтобы открывалась первоначальное меню
-  registerOnly: false # если true - все методы будут обрабатываться только с этого плагина (все остальные не будут работать)
+registerOnly: LunaSintez # если true - все методы будут обрабатываться только с этого плагина (все остальные не будут работать)
 menu:
   title: "&0"
   rows: 6
@@ -12,7 +10,7 @@ menu:
         displayName: "&cВыйти"
         lore: []
         slot: 19
-      API-LUNA_MOON_SYNTEZ:
+      API-LunaSintez:
         material: SPAWNER
         displayName: ""
         lore: []
