@@ -10,11 +10,11 @@ import org.satellite.dev.progiple.satespawnerapi.SateSpawnerAPI;
 public class Config {
     private final IConfig config;
     static {
-        config = new IConfig(SateSpawnerAPI.getINSTANCE());
+        config = new IConfig(SateSpawnerAPI.getInstance());
     }
 
     public void reload() {
-        config.reload(SateSpawnerAPI.getINSTANCE());
+        config.reload(SateSpawnerAPI.getInstance());
     }
 
     public String getString(String path) {
