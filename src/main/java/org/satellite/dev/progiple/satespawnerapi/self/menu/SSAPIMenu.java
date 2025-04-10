@@ -8,9 +8,7 @@ import org.bukkit.event.inventory.InventoryClickEvent;
 import org.bukkit.event.inventory.InventoryCloseEvent;
 import org.bukkit.event.inventory.InventoryOpenEvent;
 import org.bukkit.inventory.ItemStack;
-import org.novasparkle.lunaspring.API.Menus.Items.Item;
 import org.satellite.dev.progiple.satespawnerapi.SateSpawnerAPI;
-import org.satellite.dev.progiple.satespawnerapi.api.APIComponent;
 import org.satellite.dev.progiple.satespawnerapi.api.ASpawner;
 import org.satellite.dev.progiple.satespawnerapi.api.menu.SpawnerMenu;
 import org.satellite.dev.progiple.satespawnerapi.self.menu.buttons.ApiButton;
@@ -18,6 +16,7 @@ import org.satellite.dev.progiple.satespawnerapi.self.menu.buttons.CloseButton;
 
 import java.util.NoSuchElementException;
 import java.util.Objects;
+import java.util.Set;
 
 @Getter
 public final class SSAPIMenu extends SpawnerMenu {
@@ -27,13 +26,14 @@ public final class SSAPIMenu extends SpawnerMenu {
 
         ConfigurationSection itemSections = section.getConfigurationSection("items.clickable");
         assert itemSections != null;
+        Set<ASpawner> spawners = SateSpawnerAPI.getInstance().getRegisteredSpawners(location);
         for (String key : itemSections.getKeys(false)) {
             ConfigurationSection itemSection = itemSections.getConfigurationSection(key);
 
             if (key.startsWith("CLOSE")) this.addItems(new CloseButton(itemSection));
             else if (key.startsWith("API-")) {
                 String id = key.replace("API-", "");
-                ASpawner spawner = SateSpawnerAPI.getInstance().getApiSpawner(location);
+                ASpawner spawner = spawners.stream().filter(s -> s.checkAPI(id)).findFirst().orElse(null);
                 if (spawner == null) throw new NoSuchElementException(String.format("Компонента с идентификатором %s не существует!", id));
 
                 this.addItems(new ApiButton(itemSection, spawner));

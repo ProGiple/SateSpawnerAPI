@@ -6,35 +6,30 @@ import org.novasparkle.lunaspring.LunaPlugin;
 import org.satellite.dev.progiple.satespawnerapi.api.APIComponent;
 import org.satellite.dev.progiple.satespawnerapi.api.ASpawner;
 import org.satellite.dev.progiple.satespawnerapi.self.SSAPICommand;
-import org.satellite.dev.progiple.satespawnerapi.self.listeners.BlockClickHandler;
-import org.satellite.dev.progiple.satespawnerapi.self.listeners.BlockWorldActionsHandler;
 
 import java.util.HashSet;
 import java.util.Set;
+import java.util.stream.Collectors;
 
 public final class SateSpawnerAPI extends LunaPlugin {
     @Getter private static SateSpawnerAPI instance;
-    @Getter private Set<APIComponent> apis;
+    @Getter private Set<APIComponent> apiComponents;
 
     @Override
     public void onEnable() {
         instance = this;
 
         this.saveDefaultConfig();
-        this.apis = new HashSet<>();
+        this.apiComponents = new HashSet<>();
 
         this.initialize();
         this.registerTabExecutor(new SSAPICommand(), "satespawnerapi");
-        this.registerListeners(new BlockClickHandler(), new BlockWorldActionsHandler());
     }
 
     public void registerApi(APIComponent api) {
-        apis.add(api);
+        apiComponents.add(api);
     }
-    public ASpawner getApiSpawner(Location location) {
-        APIComponent component = this.apis.stream().filter(api -> api.isRegistered(location)).findFirst().orElse(null);
-        if (component != null)
-            return component.getApiSpawner(location);
-        return null;
+    public Set<ASpawner> getRegisteredSpawners(Location location) {
+        return this.apiComponents.stream().filter(api -> api.hasSpawner(location)).map(api -> api.getApiSpawner(location)).collect(Collectors.toSet());
     }
 }

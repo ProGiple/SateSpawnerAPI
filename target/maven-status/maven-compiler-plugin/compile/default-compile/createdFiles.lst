@@ -1,7 +1,12 @@
+org\satellite\dev\progiple\satespawnerapi\SateSpawnerAPI.class
 org\satellite\dev\progiple\satespawnerapi\self\menu\buttons\ApiButton.class
 org\satellite\dev\progiple\satespawnerapi\api\menu\SpawnerMenu.class
 org\satellite\dev\progiple\satespawnerapi\api\APIComponent.class
 org\satellite\dev\progiple\satespawnerapi\self\menu\SSAPIMenu.class
 org\satellite\dev\progiple\satespawnerapi\self\menu\buttons\CloseButton.class
-org\satellite\dev\progiple\satespawnerapi\api\ASpawner.class
+org\satellite\dev\progiple\satespawnerapi\self\Config.class
 org\satellite\dev\progiple\satespawnerapi\api\menu\BackSpawnerButton.class
+org\satellite\dev\progiple\satespawnerapi\self\listeners\BlockWorldActionsHandler.class
+org\satellite\dev\progiple\satespawnerapi\self\SSAPICommand.class
+org\satellite\dev\progiple\satespawnerapi\api\ASpawner.class
+org\satellite\dev\progiple\satespawnerapi\self\listeners\BlockClickHandler.class

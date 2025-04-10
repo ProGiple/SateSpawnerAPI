@@ -22,12 +22,13 @@ public abstract class ASpawner {
     }
     public Location getLocation() {
         return this.spawner.getLocation();
-    }
 
+    }
+    public boolean checkAPI(String plugin) {
+        return plugin.equals(this.component.getPluginName());
+    }
     public abstract void onPlaceSpawner(BlockPlaceEvent e);
     public abstract void onBreakSpawner(BlockBreakEvent e);
     public abstract void onBlockClick(PlayerInteractEvent e);
-
     public abstract void onInvClick(InventoryClickEvent e);
-    public abstract void onClickWithEgg(Material egg);
 }
