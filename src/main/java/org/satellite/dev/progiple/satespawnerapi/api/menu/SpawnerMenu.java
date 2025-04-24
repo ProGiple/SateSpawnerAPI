@@ -4,7 +4,7 @@ import lombok.Getter;
 import org.bukkit.Location;
 import org.bukkit.configuration.ConfigurationSection;
 import org.bukkit.entity.Player;
-import org.novasparkle.lunaspring.API.Menus.AMenu;
+import org.novasparkle.lunaspring.API.menus.AMenu;
 
 @Getter
 public abstract class SpawnerMenu extends AMenu {

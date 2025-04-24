@@ -17,12 +17,12 @@ public final class SateSpawnerAPI extends LunaPlugin {
 
     @Override
     public void onEnable() {
+        super.onEnable();
         instance = this;
 
         this.saveDefaultConfig();
         this.apiComponents = new HashSet<>();
 
-        this.initialize();
         this.registerTabExecutor(new SSAPICommand(), "satespawnerapi");
     }
 

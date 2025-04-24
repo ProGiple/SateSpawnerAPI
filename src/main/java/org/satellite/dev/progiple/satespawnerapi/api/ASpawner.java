@@ -8,8 +8,8 @@ import org.bukkit.event.block.BlockBreakEvent;
 import org.bukkit.event.block.BlockPlaceEvent;
 import org.bukkit.event.inventory.InventoryClickEvent;
 import org.bukkit.event.player.PlayerInteractEvent;
-import org.novasparkle.lunaspring.API.Menus.IMenu;
-import org.novasparkle.lunaspring.API.Menus.MenuManager;
+import org.novasparkle.lunaspring.API.menus.IMenu;
+import org.novasparkle.lunaspring.API.menus.MenuManager;
 
 @Getter
 public abstract class ASpawner {

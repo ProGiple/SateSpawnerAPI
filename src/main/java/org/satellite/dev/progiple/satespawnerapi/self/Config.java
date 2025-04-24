@@ -3,7 +3,7 @@ package org.satellite.dev.progiple.satespawnerapi.self;
 import lombok.experimental.UtilityClass;
 import org.bukkit.command.CommandSender;
 import org.bukkit.configuration.ConfigurationSection;
-import org.novasparkle.lunaspring.API.Configuration.IConfig;
+import org.novasparkle.lunaspring.API.configuration.IConfig;
 import org.satellite.dev.progiple.satespawnerapi.SateSpawnerAPI;
 
 @UtilityClass
