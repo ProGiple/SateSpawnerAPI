@@ -4,12 +4,17 @@ import lombok.Getter;
 import org.bukkit.Location;
 import org.bukkit.Material;
 import org.bukkit.block.CreatureSpawner;
+import org.bukkit.entity.Player;
+import org.bukkit.event.Event;
 import org.bukkit.event.block.BlockBreakEvent;
 import org.bukkit.event.block.BlockPlaceEvent;
 import org.bukkit.event.inventory.InventoryClickEvent;
+import org.bukkit.event.player.PlayerEvent;
 import org.bukkit.event.player.PlayerInteractEvent;
 import org.novasparkle.lunaspring.API.menus.IMenu;
 import org.novasparkle.lunaspring.API.menus.MenuManager;
+import org.satellite.dev.progiple.satespawnerapi.self.Config;
+import org.satellite.dev.progiple.satespawnerapi.self.menu.SSAPIMenu;
 
 @Getter
 public abstract class ASpawner {
@@ -31,4 +36,7 @@ public abstract class ASpawner {
     public abstract void onBreakSpawner(BlockBreakEvent e);
     public abstract void onBlockClick(PlayerInteractEvent e);
     public abstract void onInvClick(InventoryClickEvent e);
+    public void openMainMenu(Player player) {
+        MenuManager.openInventory(player, new SSAPIMenu(player, Config.getSection("menu"), this.getLocation()));
+    }
 }

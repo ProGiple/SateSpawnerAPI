@@ -1,6 +1,5 @@
 package org.satellite.dev.progiple.satespawnerapi.self.menu.buttons;
 
-import org.bukkit.Location;
 import org.bukkit.configuration.ConfigurationSection;
 import org.bukkit.event.inventory.InventoryClickEvent;
 import org.novasparkle.lunaspring.API.menus.items.Item;
@@ -14,7 +13,8 @@ public class ApiButton extends Item {
     }
 
     @Override
-    public void onClick(InventoryClickEvent event) {
+    public Item onClick(InventoryClickEvent event) {
         this.spawner.onInvClick(event);
+        return this;
     }
 }

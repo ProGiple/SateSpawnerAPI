@@ -44,8 +44,9 @@ public class BackSpawnerButton extends Item {
     }
 
     @Override
-    public void onClick(InventoryClickEvent e) {
+    public Item onClick(InventoryClickEvent e) {
         Player player = (Player) e.getWhoClicked();
         MenuManager.openInventory(player, new SSAPIMenu(player, Config.getSection("menu"), this.location));
+        return this;
     }
 }

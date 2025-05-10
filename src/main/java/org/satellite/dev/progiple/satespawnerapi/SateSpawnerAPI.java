@@ -5,7 +5,6 @@ import org.bukkit.Location;
 import org.novasparkle.lunaspring.LunaPlugin;
 import org.satellite.dev.progiple.satespawnerapi.api.APIComponent;
 import org.satellite.dev.progiple.satespawnerapi.api.ASpawner;
-import org.satellite.dev.progiple.satespawnerapi.self.SSAPICommand;
 
 import java.util.HashSet;
 import java.util.Set;
@@ -22,8 +21,6 @@ public final class SateSpawnerAPI extends LunaPlugin {
 
         this.saveDefaultConfig();
         this.apiComponents = new HashSet<>();
-
-        this.registerTabExecutor(new SSAPICommand(), "satespawnerapi");
     }
 
     public void registerApi(APIComponent api) {

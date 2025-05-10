@@ -12,7 +12,6 @@ depend:
 
 commands:
   satespawnerapi:
-    usage: /sspapi reload
     aliases:
       - sspapi
       - spawnerapi
@@ -20,5 +19,5 @@ commands:
       - satespawner
 
 permissions:
-  satespawnerapi.reload:
+  ssapi.reload:
     default: op

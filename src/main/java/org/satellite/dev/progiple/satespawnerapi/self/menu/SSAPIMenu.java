@@ -6,6 +6,7 @@ import org.bukkit.configuration.ConfigurationSection;
 import org.bukkit.entity.Player;
 import org.bukkit.event.inventory.InventoryClickEvent;
 import org.bukkit.event.inventory.InventoryCloseEvent;
+import org.bukkit.event.inventory.InventoryDragEvent;
 import org.bukkit.event.inventory.InventoryOpenEvent;
 import org.bukkit.inventory.ItemStack;
 import org.satellite.dev.progiple.satespawnerapi.SateSpawnerAPI;
@@ -55,4 +56,7 @@ public final class SSAPIMenu extends SpawnerMenu {
 
     @Override
     public void onClose(InventoryCloseEvent e) {}
+
+    @Override
+    public void onDrag(InventoryDragEvent inventoryDragEvent) {}
 }

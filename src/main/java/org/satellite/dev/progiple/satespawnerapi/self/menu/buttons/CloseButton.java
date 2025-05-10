@@ -10,7 +10,8 @@ public class CloseButton extends Item {
     }
 
     @Override
-    public void onClick(InventoryClickEvent e) {
+    public Item onClick(InventoryClickEvent e) {
         e.getWhoClicked().closeInventory();
+        return this;
     }
 }
