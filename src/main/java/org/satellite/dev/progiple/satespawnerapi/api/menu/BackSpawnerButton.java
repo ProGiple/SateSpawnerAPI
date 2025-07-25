@@ -5,8 +5,8 @@ import org.bukkit.Material;
 import org.bukkit.configuration.ConfigurationSection;
 import org.bukkit.entity.Player;
 import org.bukkit.event.inventory.InventoryClickEvent;
-import org.novasparkle.lunaspring.API.menus.items.Item;
 import org.novasparkle.lunaspring.API.menus.MenuManager;
+import org.novasparkle.lunaspring.API.menus.items.Item;
 import org.satellite.dev.progiple.satespawnerapi.self.Config;
 import org.satellite.dev.progiple.satespawnerapi.self.menu.SSAPIMenu;
 

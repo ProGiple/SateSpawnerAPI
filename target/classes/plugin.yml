@@ -1,5 +1,5 @@
 name: SateSpawnerAPI
-version: '1.4.0'
+version: '1.4.1'
 main: org.satellite.dev.progiple.satespawnerapi.SateSpawnerAPI
 api-version: '1.16'
 authors:
