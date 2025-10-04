@@ -7,11 +7,13 @@ import org.novasparkle.lunaspring.API.configuration.IConfig;
 import org.satellite.dev.progiple.satespawnerapi.SateSpawnerAPI;
 
 @UtilityClass
-public class Config {
+public class ConfigManager {
     private final IConfig config;
+
     static {
         config = new IConfig(SateSpawnerAPI.getInstance());
     }
+
 
     public void reload() {
         config.reload(SateSpawnerAPI.getInstance());
@@ -25,11 +27,7 @@ public class Config {
         return config.getSection(path);
     }
 
-    public boolean getBoolean(String path) {
-        return config.getBoolean(path);
-    }
-
-    public void sendMessage(CommandSender sender, String id) {
-        config.sendMessage(sender, id);
+    public void sendMessage(CommandSender sender, String id, String... replacements) {
+        config.sendMessage(sender, id, replacements);
     }
 }

@@ -8,7 +8,8 @@ import org.novasparkle.lunaspring.API.menus.AMenu;
 
 @Getter
 public abstract class SpawnerMenu extends AMenu {
-    private final Location location;
+    protected final Location location;
+
     public SpawnerMenu(Player player, Location location) {
         super(player);
         this.location = location;

@@ -7,7 +7,7 @@ import org.bukkit.entity.Player;
 import org.bukkit.event.inventory.InventoryClickEvent;
 import org.novasparkle.lunaspring.API.menus.MenuManager;
 import org.novasparkle.lunaspring.API.menus.items.Item;
-import org.satellite.dev.progiple.satespawnerapi.self.Config;
+import org.satellite.dev.progiple.satespawnerapi.self.ConfigManager;
 import org.satellite.dev.progiple.satespawnerapi.self.menu.SSAPIMenu;
 
 import java.util.List;
@@ -46,7 +46,7 @@ public class BackSpawnerButton extends Item {
     @Override
     public Item onClick(InventoryClickEvent e) {
         Player player = (Player) e.getWhoClicked();
-        MenuManager.openInventory(player, new SSAPIMenu(player, Config.getSection("menu"), this.location));
+        MenuManager.openInventory(new SSAPIMenu(player, ConfigManager.getSection("menu"), this.location));
         return this;
     }
 }

@@ -10,7 +10,7 @@ import org.bukkit.event.inventory.InventoryDragEvent;
 import org.bukkit.event.inventory.InventoryOpenEvent;
 import org.bukkit.inventory.ItemStack;
 import org.satellite.dev.progiple.satespawnerapi.SateSpawnerAPI;
-import org.satellite.dev.progiple.satespawnerapi.api.ASpawner;
+import org.satellite.dev.progiple.satespawnerapi.api.AbstractSpawner;
 import org.satellite.dev.progiple.satespawnerapi.api.menu.SpawnerMenu;
 import org.satellite.dev.progiple.satespawnerapi.self.menu.buttons.ApiButton;
 import org.satellite.dev.progiple.satespawnerapi.self.menu.buttons.CloseButton;
@@ -21,42 +21,34 @@ import java.util.Set;
 
 @Getter
 public final class SSAPIMenu extends SpawnerMenu {
+    private final ConfigurationSection section;
+
     public SSAPIMenu(Player player, ConfigurationSection section, Location location) {
-        super(player, Objects.requireNonNull(section.getString("title")), (byte) (section.getInt("rows") * 9),
-                Objects.requireNonNull(section.getConfigurationSection("items.decorations")), location);
-
-        ConfigurationSection itemSections = section.getConfigurationSection("items.clickable");
-        assert itemSections != null;
-        Set<ASpawner> spawners = SateSpawnerAPI.getInstance().getRegisteredSpawners(location);
-        for (String key : itemSections.getKeys(false)) {
-            ConfigurationSection itemSection = itemSections.getConfigurationSection(key);
-
-            if (key.startsWith("CLOSE")) this.addItems(new CloseButton(itemSection));
-            else if (key.startsWith("API-")) {
-                String id = key.replace("API-", "");
-                ASpawner spawner = spawners.stream().filter(s -> s.checkAPI(id)).findFirst().orElse(null);
-                if (spawner == null) throw new NoSuchElementException(String.format("Компонента с идентификатором %s не существует!", id));
-
-                this.addItems(new ApiButton(itemSection, spawner));
-            }
-        }
+        super(player, section, location);
+        this.section = section;
     }
+
 
     @Override
     public void onOpen(InventoryOpenEvent e) {
-        this.insertAllItems();
+
+        ConfigurationSection itemSections = section.getConfigurationSection("items.clickable");
+        assert itemSections != null;
+        Set<AbstractSpawner> spawners = SateSpawnerAPI.getInstance().getRegisteredSpawners(location);
+        for (String key : itemSections.getKeys(false)) {
+            ConfigurationSection itemSection = itemSections.getConfigurationSection(key);
+
+            if (key.startsWith("CLOSE")) {
+                this.addItems(false, new CloseButton(itemSection));
+
+            } else if (key.startsWith("API-")) {
+                String plugin = key.replace("API-", "");
+                AbstractSpawner pluginSpawner = spawners.stream().filter(s -> s.checkAPI(plugin)).findFirst().orElse(null);
+                if (pluginSpawner == null) throw new NoSuchElementException(String.format("Компонента с идентификатором %s не существует!", plugin));
+
+                this.addItems(false, new ApiButton(itemSection, pluginSpawner));
+            }
+        }
+        this.insertAll();
     }
-
-    @Override
-    public void onClick(InventoryClickEvent e) {
-        ItemStack item = e.getCurrentItem();
-        e.setCancelled(true);
-        if (item != null) this.findFirstItem(item).onClick(e);
-    }
-
-    @Override
-    public void onClose(InventoryCloseEvent e) {}
-
-    @Override
-    public void onDrag(InventoryDragEvent inventoryDragEvent) {}
 }

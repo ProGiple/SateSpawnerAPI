@@ -3,11 +3,11 @@ package org.satellite.dev.progiple.satespawnerapi.self.menu.buttons;
 import org.bukkit.configuration.ConfigurationSection;
 import org.bukkit.event.inventory.InventoryClickEvent;
 import org.novasparkle.lunaspring.API.menus.items.Item;
-import org.satellite.dev.progiple.satespawnerapi.api.ASpawner;
+import org.satellite.dev.progiple.satespawnerapi.api.AbstractSpawner;
 
 public class ApiButton extends Item {
-    private final ASpawner spawner;
-    public ApiButton(ConfigurationSection section, ASpawner spawner) {
+    private final AbstractSpawner spawner;
+    public ApiButton(ConfigurationSection section, AbstractSpawner spawner) {
         super(section, section.getInt("slot"));
         this.spawner = spawner;
     }
